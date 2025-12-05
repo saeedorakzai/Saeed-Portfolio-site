@@ -4,9 +4,9 @@ import "./globals.css";
 import LoadingScreen from "@/components/ui/LoadingScreen";
 import dynamic from 'next/dynamic';
 
-const ParticleField = dynamic(() => import("@/components/3d/ParticleField"), { ssr: false });
-const CursorTrail = dynamic(() => import("@/components/ui/CursorTrail"), { ssr: false });
-const ScrollProgress = dynamic(() => import("@/components/ui/ScrollProgress"), { ssr: false });
+const ParticleField = dynamic(() => import("@/components/3d/ParticleField"));
+const CursorTrail = dynamic(() => import("@/components/ui/CursorTrail"));
+const ScrollProgress = dynamic(() => import("@/components/ui/ScrollProgress"));
 
 const inter = Inter({
   variable: "--font-inter",
