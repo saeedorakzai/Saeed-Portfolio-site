@@ -61,6 +61,12 @@ export default function Navbar() {
                             {item.name}
                         </a>
                     ))}
+                    <Link
+                        href="/login"
+                        className="text-sm font-medium text-text-muted hover:text-primary transition-colors"
+                    >
+                        Login
+                    </Link>
                     <a
                         href="/resume.pdf"
                         target="_blank"
@@ -101,6 +107,13 @@ export default function Navbar() {
                                     {item.name}
                                 </a>
                             ))}
+                            <Link
+                                href="/login"
+                                onClick={() => setIsOpen(false)}
+                                className="text-lg font-medium text-text-muted hover:text-primary transition-colors"
+                            >
+                                Login
+                            </Link>
                             <a
                                 href="/resume.pdf"
                                 target="_blank"

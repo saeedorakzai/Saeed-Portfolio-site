@@ -24,6 +24,11 @@ export default function ScrollProgress() {
             className="fixed top-0 left-0 right-0 h-1 z-50 bg-surface/20"
             initial={{ opacity: 0 }}
             animate={{ opacity: scrollProgress > 5 ? 1 : 0 }}
+            role="progressbar"
+            aria-valuenow={Math.round(scrollProgress)}
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-label="Page scroll progress"
         >
             <motion.div
                 className="h-full bg-gradient-to-r from-primary via-secondary to-accent"
