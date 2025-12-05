@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import LoadingScreen from "@/components/ui/LoadingScreen";
-import ScrollProgress from "@/components/ui/ScrollProgress";
-import CursorTrail from "@/components/ui/CursorTrail";
-import ParticleField from "@/components/3d/ParticleField";
+import dynamic from 'next/dynamic';
+
+const ParticleField = dynamic(() => import("@/components/3d/ParticleField"), { ssr: false });
+const CursorTrail = dynamic(() => import("@/components/ui/CursorTrail"), { ssr: false });
+const ScrollProgress = dynamic(() => import("@/components/ui/ScrollProgress"), { ssr: false });
 
 const inter = Inter({
   variable: "--font-inter",
