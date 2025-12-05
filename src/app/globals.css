@@ -1,0 +1,38 @@
+@import "tailwindcss";
+
+:root {
+  /* Custom Color Palette */
+  --primary: #00D9FF;
+  --secondary: #7C3AED;
+  --accent: #F59E0B;
+  --background: #0A0A0F;
+  --surface: #1A1A2E;
+  --text: #E5E7EB;
+  --text-muted: #9CA3AF;
+
+  /* Font Variables (will be set in layout.tsx) */
+  --font-inter: sans-serif;
+  --font-jetbrains-mono: monospace;
+}
+
+@theme inline {
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-text: var(--text);
+  --color-text-muted: var(--text-muted);
+
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-jetbrains-mono);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--text);
+  font-family: var(--font-inter);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
