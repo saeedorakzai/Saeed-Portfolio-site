@@ -2,33 +2,12 @@
 
 import { motion } from 'framer-motion';
 import Scene from '@/components/3d/Scene';
+import AvatarScene from '@/components/3d/AvatarScene';
 import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { MeshDistortMaterial, Sphere } from '@react-three/drei';
 
-function AnimatedSphere() {
-    const meshRef = useRef<any>(null);
 
-    useFrame((state) => {
-        if (meshRef.current) {
-            meshRef.current.rotation.x = state.clock.getElapsedTime() * 0.2;
-            meshRef.current.rotation.y = state.clock.getElapsedTime() * 0.3;
-        }
-    });
-
-    return (
-        <Sphere args={[1, 100, 200]} scale={2} ref={meshRef}>
-            <MeshDistortMaterial
-                color="#00D9FF"
-                attach="material"
-                distort={0.5}
-                speed={2}
-                roughness={0.2}
-                metalness={0.8}
-            />
-        </Sphere>
-    );
-}
 
 export default function Hero() {
     return (
@@ -36,9 +15,7 @@ export default function Hero() {
             {/* 3D Background */}
             <div className="absolute inset-0 z-0">
                 <Scene className="h-full w-full">
-                    <ambientLight intensity={0.5} />
-                    <directionalLight position={[10, 10, 5]} intensity={1} />
-                    <AnimatedSphere />
+                    <AvatarScene />
                 </Scene>
             </div>
 
