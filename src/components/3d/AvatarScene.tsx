@@ -1,6 +1,6 @@
 'use client';
 
-import { useGLTF, useAnimations, PerspectiveCamera, Environment, ContactShadows } from '@react-three/drei';
+import { useGLTF, PerspectiveCamera, Environment, ContactShadows } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
@@ -80,92 +80,58 @@ function Chair() {
 
 function Avatar() {
     const group = useRef<Group>(null);
-    // Attempt to load the model. If it fails, it will just return null/error which we can catch or it will just not render.
-    // Note: We are assuming the user will provide 'avatar.glb' in public/models/
-    const { scene, animations } = useGLTF('/models/avatar.glb', undefined, undefined, (error) => {
-        console.warn("Avatar model not found yet. Please download avatar.glb to public/models/");
-    });
-    const { actions, names } = useAnimations(animations, group);
+    const { scene } = useGLTF('/models/avatar.glb');
     const [stage, setStage] = useState<'walking' | 'waving' | 'sitting'>('walking');
 
     useEffect(() => {
-        // Animation Logic
-        // This is a "best effort" logic assuming standard animation names or just playing the first one.
-        // If the user downloads a model with specific names, we might need to adjust.
-        // For now, we'll try to find common names or just play the first available animation.
-
-        if (!actions || names.length === 0) return;
-
-        const playAnimation = (name: string) => {
-            // Try to find an animation that contains the name (case insensitive)
-            const clipName = names.find(n => n.toLowerCase().includes(name.toLowerCase()));
-            if (clipName) {
-                actions[clipName]?.reset().fadeIn(0.5).play();
-                return actions[clipName];
-            }
-            // Fallback: Play the first one if nothing matches
-            if (names.length > 0 && name === 'idle') {
-                actions[names[0]]?.reset().fadeIn(0.5).play();
-                return actions[names[0]];
-            }
-            return null;
-        };
-
-        // Sequence
-        // 1. Walk in
-        playAnimation('walk');
-
+        // Simple sequence without animations
         const waveTimer = setTimeout(() => {
             setStage('waving');
-            // Stop walk, play wave
-            // Note: This requires the model to have these specific animations. 
-            // If not, we will just rely on position movement.
-            const walkAnim = names.find(n => n.toLowerCase().includes('walk'));
-            if (walkAnim) actions[walkAnim]?.fadeOut(0.5);
-
-            playAnimation('wave') || playAnimation('idle');
         }, 3000);
 
         const sitTimer = setTimeout(() => {
             setStage('sitting');
-            const waveAnim = names.find(n => n.toLowerCase().includes('wave'));
-            if (waveAnim) actions[waveAnim]?.fadeOut(0.5);
-
-            playAnimation('sit') || playAnimation('idle');
         }, 6000);
 
         return () => {
             clearTimeout(waveTimer);
             clearTimeout(sitTimer);
         };
-    }, [actions, names]);
+    }, []);
 
     useFrame((state, delta) => {
         if (!group.current) return;
 
-        // Movement Logic
+        // Movement Logic (Sliding since no animations)
         if (stage === 'walking') {
             // Move from left (-2) to center (0)
             if (group.current.position.x < 0) {
                 group.current.position.x += delta * 1; // Speed
                 group.current.rotation.y = Math.PI / 2; // Face right
+                // Add bobbing motion to simulate walking
+                group.current.position.y = Math.sin(state.clock.elapsedTime * 10) * 0.05;
             } else {
                 // Reached center, face camera
                 group.current.rotation.y = THREE.MathUtils.lerp(group.current.rotation.y, 0, delta * 5);
+                group.current.position.y = THREE.MathUtils.lerp(group.current.position.y, 0, delta * 5);
             }
         } else if (stage === 'waving') {
             // Stand still, face camera
             group.current.rotation.y = THREE.MathUtils.lerp(group.current.rotation.y, 0, delta * 5);
+            // Add slight sway
+            group.current.rotation.z = Math.sin(state.clock.elapsedTime * 2) * 0.02;
         } else if (stage === 'sitting') {
             // Move to desk (1.5)
             if (group.current.position.x < 1.0) {
                 group.current.position.x += delta * 1;
                 group.current.rotation.y = Math.PI / 2; // Face right
+                group.current.position.y = Math.sin(state.clock.elapsedTime * 10) * 0.05;
             } else {
                 // Sit down orientation
                 group.current.rotation.y = THREE.MathUtils.lerp(group.current.rotation.y, -Math.PI / 2, delta * 5);
-                // Adjust Y for sitting (simplified)
-                // group.current.position.y = 0; 
+                // Lower into chair
+                group.current.position.y = THREE.MathUtils.lerp(group.current.position.y, -0.5, delta * 5);
+                group.current.position.z = THREE.MathUtils.lerp(group.current.position.z, 0.2, delta * 5);
             }
         }
     });
