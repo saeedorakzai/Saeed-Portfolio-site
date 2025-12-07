@@ -1,6 +1,6 @@
 'use client';
 
-import { useGLTF, PerspectiveCamera, Environment, ContactShadows } from '@react-three/drei';
+import { useGLTF, useAnimations, useFBX, PerspectiveCamera, Environment, ContactShadows } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
@@ -82,6 +82,18 @@ function Avatar() {
     const group = useRef<Group>(null);
     const { scene } = useGLTF('/models/avatar.glb');
 
+    // Load Animations
+    const { animations: walkAnim } = useFBX('/models/walking.fbx');
+    const { animations: waveAnim } = useFBX('/models/waving.fbx');
+    const { animations: sitAnim } = useFBX('/models/sitting.fbx');
+
+    // Name them for easy access
+    walkAnim[0].name = 'walk';
+    waveAnim[0].name = 'wave';
+    sitAnim[0].name = 'sit';
+
+    const { actions } = useAnimations([walkAnim[0], waveAnim[0], sitAnim[0]], group);
+
     // Stages: 
     // 0: Start (Left) -> Walk to Center
     // 1: Look at Name
@@ -90,6 +102,19 @@ function Avatar() {
     // 4: Walk to Chair
     // 5: Sit
     const [stage, setStage] = useState(0);
+
+    useEffect(() => {
+        if (!actions) return;
+
+        // Initial Animation
+        actions['walk']?.reset().fadeIn(0.5).play();
+
+        return () => {
+            actions['walk']?.fadeOut(0.5);
+            actions['wave']?.fadeOut(0.5);
+            actions['sit']?.fadeOut(0.5);
+        };
+    }, [actions]);
 
     useFrame((state, delta) => {
         if (!group.current) return;
@@ -103,21 +128,28 @@ function Avatar() {
             if (pos.x < -1) {
                 pos.x += delta * 1.5; // Speed
                 rot.y = Math.PI / 2; // Face Right
-                // Bobbing
-                pos.y = Math.abs(Math.sin(t * 10)) * 0.1;
+
+                // Ensure walk is playing
+                if (actions['walk'] && !actions['walk'].isRunning()) {
+                    actions['walk'].reset().fadeIn(0.2).play();
+                    actions['wave']?.fadeOut(0.2);
+                    actions['sit']?.fadeOut(0.2);
+                }
             } else {
                 setStage(1);
-                // Reset Y
-                pos.y = 0;
             }
         }
         // Stage 1: Look at Name (Center)
         else if (stage === 1) {
-            // Smoothly rotate to face camera/text
+            // Stop walking, maybe play idle (using wave start as idle for now)
+            if (actions['walk']?.isRunning()) actions['walk'].fadeOut(0.5);
+            if (actions['wave'] && !actions['wave'].isRunning()) {
+                actions['wave'].reset().fadeIn(0.5).play();
+            }
+
             rot.y = THREE.MathUtils.lerp(rot.y, 0, delta * 3);
 
-            // Wait for 1.5 seconds then move on
-            if (state.clock.elapsedTime > 4) { // Assuming it takes ~2-3s to walk in
+            if (state.clock.elapsedTime > 4) {
                 setStage(2);
             }
         }
@@ -126,22 +158,26 @@ function Avatar() {
             if (pos.x < 1.5) {
                 pos.x += delta * 1.5;
                 rot.y = Math.PI / 2;
-                pos.y = Math.abs(Math.sin(t * 10)) * 0.1;
+
+                if (actions['wave']?.isRunning()) actions['wave'].fadeOut(0.2);
+                if (actions['walk'] && !actions['walk'].isRunning()) {
+                    actions['walk'].reset().fadeIn(0.2).play();
+                }
             } else {
                 setStage(3);
-                pos.y = 0;
             }
         }
         // Stage 3: Wave
         else if (stage === 3) {
             rot.y = THREE.MathUtils.lerp(rot.y, 0, delta * 5);
-            // Simulate wave with rotation Z
-            rot.z = Math.sin(t * 5) * 0.1;
 
-            // Wave for 2 seconds
+            if (actions['walk']?.isRunning()) actions['walk'].fadeOut(0.5);
+            if (actions['wave'] && !actions['wave'].isRunning()) {
+                actions['wave'].reset().fadeIn(0.5).play();
+            }
+
             if (state.clock.elapsedTime > 8) {
                 setStage(4);
-                rot.z = 0;
             }
         }
         // Stage 4: Walk to Chair (3)
@@ -149,18 +185,27 @@ function Avatar() {
             if (pos.x < 3) {
                 pos.x += delta * 1.5;
                 rot.y = Math.PI / 2;
-                pos.y = Math.abs(Math.sin(t * 10)) * 0.1;
+
+                if (actions['wave']?.isRunning()) actions['wave'].fadeOut(0.2);
+                if (actions['walk'] && !actions['walk'].isRunning()) {
+                    actions['walk'].reset().fadeIn(0.2).play();
+                }
             } else {
                 setStage(5);
             }
         }
         // Stage 5: Sit
         else if (stage === 5) {
-            // Face desk (Back to camera/side)
             rot.y = THREE.MathUtils.lerp(rot.y, Math.PI, delta * 2);
-            // Sit down
-            pos.y = THREE.MathUtils.lerp(pos.y, -0.2, delta * 2);
+            // Align with chair
             pos.z = THREE.MathUtils.lerp(pos.z, 0.5, delta * 2);
+
+            if (actions['walk']?.isRunning()) actions['walk'].fadeOut(0.5);
+            if (actions['sit'] && !actions['sit'].isRunning()) {
+                actions['sit'].reset().fadeIn(0.5).play();
+                actions['sit'].clampWhenFinished = true;
+                actions['sit'].loop = THREE.LoopOnce;
+            }
         }
     });
 
@@ -187,5 +232,3 @@ export default function AvatarScene() {
         </group>
     );
 }
-
-import React from 'react';
