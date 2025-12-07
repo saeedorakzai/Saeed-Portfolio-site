@@ -1,12 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import LoadingScreen from "@/components/ui/LoadingScreen";
-import dynamic from 'next/dynamic';
-
-const ParticleField = dynamic(() => import("@/components/3d/ParticleField"));
-const CursorTrail = dynamic(() => import("@/components/ui/CursorTrail"));
-const ScrollProgress = dynamic(() => import("@/components/ui/ScrollProgress"));
+import ClientEffects from "@/components/layout/ClientEffects";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -64,10 +59,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} ${jetbrainsMono.variable}`}>
-        <LoadingScreen />
-        <ScrollProgress />
-        <CursorTrail />
-        <ParticleField />
+        <ClientEffects />
         {children}
       </body>
     </html>
