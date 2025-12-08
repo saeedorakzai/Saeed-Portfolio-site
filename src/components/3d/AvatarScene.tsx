@@ -33,8 +33,8 @@ function Desk() {
                 <meshStandardMaterial color="#333" />
             </mesh>
 
-            {/* Laptop - Centered */}
-            <group position={[0, 0.78, 0]}>
+            {/* Laptop - Rotated so Apple logo faces viewer */}
+            <group position={[0, 0.78, 0]} rotation={[0, Math.PI, 0]}>
                 {/* Base */}
                 <mesh position={[0, 0, 0.1]}>
                     <boxGeometry args={[0.4, 0.02, 0.3]} />
@@ -45,7 +45,7 @@ function Desk() {
                     <boxGeometry args={[0.4, 0.3, 0.02]} />
                     <meshStandardMaterial color="#1a1a1a" metalness={0.8} roughness={0.2} />
                 </mesh>
-                {/* Apple Logo Glow - Back of Screen */}
+                {/* Apple Logo Glow - Back of Screen (now visible) */}
                 <mesh position={[0, 0.15, -0.06]} rotation={[-0.2, 0, 0]}>
                     <circleGeometry args={[0.05, 32]} />
                     <meshBasicMaterial color="#ffffff" toneMapped={false} />
@@ -144,8 +144,8 @@ function Avatar() {
     }, [isWaving, actions]);
 
     // Position: Right after "Ullah" - hand next to the "h"
-    // Smaller size, standing naturally
-    return <primitive object={scene} ref={group} position={[2.8, 0, 0]} rotation={[0, -0.3, 0]} scale={1.0} />;
+    // Facing directly towards the viewer
+    return <primitive object={scene} ref={group} position={[2.8, 0, 0]} rotation={[0, 0, 0]} scale={1.0} />;
 }
 
 export default function AvatarScene() {
