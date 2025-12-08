@@ -149,7 +149,13 @@ function Avatar() {
         // Stage 0: Walk from Start (-6) to Chair Area (2.5)
         if (stage === 0) {
             if (pos.x < 2.5) {
-                pos.x += delta * 0.8; // Slower Speed (was 1.5)
+                pos.x += delta * 0.8; // Speed
+
+                // Diagonal Movement: Interpolate Z from 0 to 0.8 based on X progress
+                // Start X: -6, End X: 2.5 -> Total Distance: 8.5
+                const progress = (pos.x - (-6)) / 8.5;
+                pos.z = progress * 0.8;
+
                 rot.y = Math.PI / 2; // Face Right
 
                 // Ensure walk is playing
@@ -172,20 +178,7 @@ function Avatar() {
                 actions['wave'].reset().fadeIn(0.5).play();
             }
 
-            // Wait for wave to finish (approx 3 seconds)
-            // We use a local timer check relative to when this stage started would be better, 
-            // but for simplicity we check if wave is almost done or just use time
-            // Let's use a simple counter or just rely on global time if we tracked stage start.
-            // For now, let's just wait a bit.
-            // A better way is to check action time, but let's use a simple delay logic
-            // Since we don't track stage start time easily here without extra state, 
-            // we can just check if the wave action has played for a duration.
-
-            // Hacky but effective: check if we've been in this stage long enough? 
-            // Actually, let's just let it wave for a fixed time based on global clock? 
-            // No, that's hard. Let's just use a simple counter in a ref if needed, 
-            // or just check if action.time > 2.5 (assuming loop)
-
+            // Wait for wave to finish (approx 2.5s)
             if (actions['wave'] && actions['wave'].time > 2.5) {
                 setStage(2);
             }
@@ -194,6 +187,7 @@ function Avatar() {
         else if (stage === 2) {
             if (pos.x < 3) {
                 pos.x += delta * 0.8;
+                pos.z = 0.8; // Maintain Z position
                 rot.y = Math.PI / 2;
 
                 if (actions['wave']?.isRunning()) actions['wave'].fadeOut(0.2);
@@ -207,7 +201,7 @@ function Avatar() {
         // Stage 3: Sit
         else if (stage === 3) {
             rot.y = THREE.MathUtils.lerp(rot.y, Math.PI, delta * 2);
-            // Align with chair Z (was 0.5, let's make it smoother)
+            // Align with chair Z (already at 0.8, but smooth clamp just in case)
             pos.z = THREE.MathUtils.lerp(pos.z, 0.5, delta * 2);
 
             if (actions['walk']?.isRunning()) actions['walk'].fadeOut(0.5);
