@@ -138,20 +138,20 @@ function Avatar() {
         }
     }, [isWaving, actions]);
 
-    // Position: Right of the name (Name is usually center-left, so we put avatar Right)
-    // Adjusted to be standing next to the desk
-    return <primitive object={scene} ref={group} position={[2.5, 0, 0.5]} rotation={[0, -0.5, 0]} scale={1.5} />;
+    // Position: Far Right of the screen, standing on ground
+    // Rotation: Slightly facing the camera
+    return <primitive object={scene} ref={group} position={[4, -0.2, 1]} rotation={[0, -0.8, 0]} scale={1.3} />;
 }
 
 export default function AvatarScene() {
     return (
-        <group position={[0, -0.9, 0]}>
+        <group position={[0, -0.5, 0]}> {/* Adjusted scene height */}
             <ambientLight intensity={0.5} />
             <directionalLight position={[-5, 5, 5]} intensity={1} castShadow />
             <spotLight position={[0, 5, 0]} intensity={0.8} angle={0.3} penumbra={1} />
 
-            {/* Desk and Chair Group - Centered or slightly left */}
-            <group position={[-1, 0, 0]}>
+            {/* Desk and Chair Group - Far Left Background */}
+            <group position={[-3.5, 0, -1]} scale={0.7}> {/* Smaller and further back */}
                 <Desk />
                 <Chair />
             </group>
