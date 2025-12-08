@@ -186,8 +186,8 @@ function Avatar() {
     }, [isWaving, actions]);
 
     // Position: Right after "Ullah" - hand next to the "h"
-    // Rotated to make wave face viewer (Mixamo animations face +Z by default)
-    return <primitive object={scene} ref={group} position={[2.8, 0, 0]} rotation={[0, Math.PI / 2, 0]} scale={1.0} />;
+    // Facing viewer - trying -90 degrees to correct the wave direction
+    return <primitive object={scene} ref={group} position={[2.8, 0, 0]} rotation={[0, -Math.PI / 2, 0]} scale={1.0} />;
 }
 
 export default function AvatarScene() {
