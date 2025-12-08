@@ -101,7 +101,7 @@ function Avatar() {
 
                 // Ensure it targets the correct root bone if needed (usually Hips)
                 if (track.name.startsWith('.position')) {
-                    // track.name = 'Hips.position'; // Sometimes needed, but let's try just stripping first
+                    // track.name = 'Hips.position'; 
                 }
             });
         });
@@ -116,33 +116,37 @@ function Avatar() {
     }, [walkAnim, waveAnim, sitAnim]);
 
     const { actions } = useAnimations([walkAnim[0], waveAnim[0], sitAnim[0]], group);
-
-    // Stages: 
-    // 0: Start (Left) -> Walk to Center
-    // 1: Look at Name
-    // 2: Walk to Wave Spot
-    // 3: Wave
-    // 4: Walk to Chair
-    // 5: Sit
     const [stage, setStage] = useState(0);
 
+    // Handle Animation State Changes
     useEffect(() => {
         if (!actions) return;
 
-        // Initial Animation
-        actions['walk']?.reset().fadeIn(0.5).play();
+        // Reset all animations first to ensure clean state
+        Object.values(actions).forEach(action => action?.fadeOut(0.5));
 
-        return () => {
-            actions['walk']?.fadeOut(0.5);
-            actions['wave']?.fadeOut(0.5);
-            actions['sit']?.fadeOut(0.5);
-        };
-    }, [actions]);
+        if (stage === 0) {
+            actions['walk']?.reset().fadeIn(0.5).play();
+        } else if (stage === 1) {
+            const wave = actions['wave'];
+            if (wave) {
+                wave.reset().fadeIn(0.5).setLoop(THREE.LoopOnce, 1).play();
+                wave.clampWhenFinished = true;
+            }
+        } else if (stage === 2) {
+            actions['walk']?.reset().fadeIn(0.5).play();
+        } else if (stage === 3) {
+            const sit = actions['sit'];
+            if (sit) {
+                sit.reset().fadeIn(0.5).setLoop(THREE.LoopOnce, 1).play();
+                sit.clampWhenFinished = true;
+            }
+        }
+    }, [stage, actions]);
 
     useFrame((state, delta) => {
         if (!group.current) return;
 
-        const t = state.clock.elapsedTime;
         const pos = group.current.position;
         const rot = group.current.rotation;
 
@@ -157,29 +161,17 @@ function Avatar() {
                 pos.z = progress * 0.8;
 
                 rot.y = Math.PI / 2; // Face Right
-
-                // Ensure walk is playing
-                if (actions['walk'] && !actions['walk'].isRunning()) {
-                    actions['walk'].reset().fadeIn(0.2).play();
-                    actions['wave']?.fadeOut(0.2);
-                    actions['sit']?.fadeOut(0.2);
-                }
             } else {
                 setStage(1);
             }
         }
         // Stage 1: Wave at Chair
         else if (stage === 1) {
-            // Face Camera
             rot.y = THREE.MathUtils.lerp(rot.y, 0, delta * 3);
 
-            if (actions['walk']?.isRunning()) actions['walk'].fadeOut(0.5);
+            // Check if wave is finished to move to next stage
             if (actions['wave'] && !actions['wave'].isRunning()) {
-                actions['wave'].reset().fadeIn(0.5).play();
-            }
-
-            // Wait for wave to finish (approx 2.5s)
-            if (actions['wave'] && actions['wave'].time > 2.5) {
+                // Add a small delay or just move on
                 setStage(2);
             }
         }
@@ -189,11 +181,6 @@ function Avatar() {
                 pos.x += delta * 0.8;
                 pos.z = 0.8; // Maintain Z position
                 rot.y = Math.PI / 2;
-
-                if (actions['wave']?.isRunning()) actions['wave'].fadeOut(0.2);
-                if (actions['walk'] && !actions['walk'].isRunning()) {
-                    actions['walk'].reset().fadeIn(0.2).play();
-                }
             } else {
                 setStage(3);
             }
@@ -203,13 +190,6 @@ function Avatar() {
             rot.y = THREE.MathUtils.lerp(rot.y, Math.PI, delta * 2);
             // Align with chair Z (already at 0.8, but smooth clamp just in case)
             pos.z = THREE.MathUtils.lerp(pos.z, 0.5, delta * 2);
-
-            if (actions['walk']?.isRunning()) actions['walk'].fadeOut(0.5);
-            if (actions['sit'] && !actions['sit'].isRunning()) {
-                actions['sit'].reset().fadeIn(0.5).play();
-                actions['sit'].clampWhenFinished = true;
-                actions['sit'].loop = THREE.LoopOnce;
-            }
         }
     });
 
