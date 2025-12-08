@@ -6,7 +6,7 @@ import { useEffect, useRef, useState, Suspense } from 'react';
 import * as THREE from 'three';
 import { Group } from 'three';
 
-// Desk Component - Adjusted for better layout
+// Desk Component - With Apple Logo Glow
 function Desk() {
     return (
         <group position={[0, 0, 0]} rotation={[0, 0, 0]}>
@@ -38,17 +38,22 @@ function Desk() {
                 {/* Base */}
                 <mesh position={[0, 0, 0.1]}>
                     <boxGeometry args={[0.4, 0.02, 0.3]} />
-                    <meshStandardMaterial color="#222" />
+                    <meshStandardMaterial color="#d4d4d4" metalness={0.9} roughness={0.1} />
                 </mesh>
                 {/* Screen */}
                 <mesh position={[0, 0.15, -0.05]} rotation={[-0.2, 0, 0]}>
                     <boxGeometry args={[0.4, 0.3, 0.02]} />
-                    <meshStandardMaterial color="#111" />
+                    <meshStandardMaterial color="#1a1a1a" metalness={0.8} roughness={0.2} />
                 </mesh>
-                {/* Screen Glow */}
+                {/* Apple Logo Glow - Back of Screen */}
+                <mesh position={[0, 0.15, -0.06]} rotation={[-0.2, 0, 0]}>
+                    <circleGeometry args={[0.05, 32]} />
+                    <meshBasicMaterial color="#ffffff" toneMapped={false} />
+                </mesh>
+                {/* Screen Display Glow */}
                 <mesh position={[0, 0.15, -0.04]} rotation={[-0.2, 0, 0]}>
                     <planeGeometry args={[0.38, 0.28]} />
-                    <meshBasicMaterial color="#00D9FF" toneMapped={false} />
+                    <meshBasicMaterial color="#4a9eff" toneMapped={false} opacity={0.8} transparent />
                 </mesh>
             </group>
         </group>
@@ -138,20 +143,20 @@ function Avatar() {
         }
     }, [isWaving, actions]);
 
-    // Position: Far Right of the screen, standing on ground
-    // Rotation: Slightly facing the camera
-    return <primitive object={scene} ref={group} position={[4, -0.2, 1]} rotation={[0, -0.8, 0]} scale={1.3} />;
+    // Position: Right after "Ullah" - hand next to the "h"
+    // Smaller size, standing naturally
+    return <primitive object={scene} ref={group} position={[2.8, 0, 0]} rotation={[0, -0.3, 0]} scale={1.0} />;
 }
 
 export default function AvatarScene() {
     return (
-        <group position={[0, -0.5, 0]}> {/* Adjusted scene height */}
-            <ambientLight intensity={0.5} />
+        <group position={[0, -0.7, 0]}> {/* Adjusted scene height */}
+            <ambientLight intensity={0.6} />
             <directionalLight position={[-5, 5, 5]} intensity={1} castShadow />
             <spotLight position={[0, 5, 0]} intensity={0.8} angle={0.3} penumbra={1} />
 
-            {/* Desk and Chair Group - Far Left Background */}
-            <group position={[-3.5, 0, -1]} scale={0.7}> {/* Smaller and further back */}
+            {/* Desk and Chair Group - Left side, visible */}
+            <group position={[-2, 0, 0.5]} scale={1.0}> {/* Normal size, visible position */}
                 <Desk />
                 <Chair />
             </group>
