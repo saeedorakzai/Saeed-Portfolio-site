@@ -96,10 +96,7 @@ function Avatar() {
     const cleanAnimation = (clips: THREE.AnimationClip[]) => {
         clips.forEach(clip => {
             clip.tracks.forEach(track => {
-                // Remove 'mixamorig' prefix from bone names
                 track.name = track.name.replace('mixamorig', '');
-
-                // Ensure it targets the correct root bone if needed (usually Hips)
                 if (track.name.startsWith('.position')) {
                     // track.name = 'Hips.position'; 
                 }
@@ -118,24 +115,32 @@ function Avatar() {
     const { actions } = useAnimations([walkAnim[0], waveAnim[0], sitAnim[0]], group);
     const [stage, setStage] = useState(0);
 
-    // Handle Animation State Changes
+    // Handle Animation State Changes with Timers
     useEffect(() => {
         if (!actions) return;
 
-        // Reset all animations first to ensure clean state
+        // Reset all animations first
         Object.values(actions).forEach(action => action?.fadeOut(0.5));
 
         if (stage === 0) {
+            // Walk to Center
             actions['walk']?.reset().fadeIn(0.5).play();
         } else if (stage === 1) {
+            // Wave
             const wave = actions['wave'];
             if (wave) {
                 wave.reset().fadeIn(0.5).setLoop(THREE.LoopOnce, 1).play();
                 wave.clampWhenFinished = true;
+
+                // Wait 3 seconds then move to next stage
+                const timer = setTimeout(() => setStage(2), 3000);
+                return () => clearTimeout(timer);
             }
         } else if (stage === 2) {
+            // Walk to Seat
             actions['walk']?.reset().fadeIn(0.5).play();
         } else if (stage === 3) {
+            // Sit
             const sit = actions['sit'];
             if (sit) {
                 sit.reset().fadeIn(0.5).setLoop(THREE.LoopOnce, 1).play();
@@ -153,10 +158,9 @@ function Avatar() {
         // Stage 0: Walk from Start (-6) to Chair Area (2.5)
         if (stage === 0) {
             if (pos.x < 2.5) {
-                pos.x += delta * 0.8; // Speed
+                pos.x += delta * 0.6; // Even Slower Speed (was 0.8)
 
-                // Diagonal Movement: Interpolate Z from 0 to 0.8 based on X progress
-                // Start X: -6, End X: 2.5 -> Total Distance: 8.5
+                // Diagonal Movement
                 const progress = (pos.x - (-6)) / 8.5;
                 pos.z = progress * 0.8;
 
@@ -165,40 +169,34 @@ function Avatar() {
                 setStage(1);
             }
         }
-        // Stage 1: Wave at Chair
+        // Stage 1: Wave at Chair (Stationary)
         else if (stage === 1) {
             rot.y = THREE.MathUtils.lerp(rot.y, 0, delta * 3);
-
-            // Check if wave is finished to move to next stage
-            if (actions['wave'] && !actions['wave'].isRunning()) {
-                // Add a small delay or just move on
-                setStage(2);
-            }
+            // Timer handles transition to stage 2
         }
-        // Stage 2: Walk to Chair Seat (3) and Sit
+        // Stage 2: Walk to Chair Seat (3)
         else if (stage === 2) {
             if (pos.x < 3) {
-                pos.x += delta * 0.8;
-                pos.z = 0.8; // Maintain Z position
+                pos.x += delta * 0.6;
+                pos.z = 0.8;
                 rot.y = Math.PI / 2;
             } else {
                 setStage(3);
             }
         }
-        // Stage 3: Sit
+        // Stage 3: Sit (Stationary)
         else if (stage === 3) {
             rot.y = THREE.MathUtils.lerp(rot.y, Math.PI, delta * 2);
-            // Align with chair Z (already at 0.8, but smooth clamp just in case)
-            pos.z = THREE.MathUtils.lerp(pos.z, 0.5, delta * 2);
+            pos.z = THREE.MathUtils.lerp(pos.z, 0.6, delta * 2); // Adjusted Sit Position
         }
     });
 
-    return <primitive object={scene} ref={group} position={[-6, 0, 0]} scale={1.6} />;
+    return <primitive object={scene} ref={group} position={[-6, 0, 0]} scale={1.5} />; // Adjusted Scale
 }
 
 export default function AvatarScene() {
     return (
-        <group position={[0, -1, 0]}>
+        <group position={[0, -0.9, 0]}> {/* Lowered entire scene slightly */}
             <ambientLight intensity={0.5} />
             <directionalLight position={[-5, 5, 5]} intensity={1} castShadow />
             <spotLight position={[0, 5, 0]} intensity={0.8} angle={0.3} penumbra={1} />
@@ -206,7 +204,6 @@ export default function AvatarScene() {
             <Desk />
             <Chair />
 
-            {/* Fallback if model is missing: Just show the desk setup */}
             <Suspense fallback={null}>
                 <Avatar />
             </Suspense>
