@@ -6,78 +6,120 @@ import { useEffect, useRef, useState, Suspense } from 'react';
 import * as THREE from 'three';
 import { Group } from 'three';
 
-// Desk Component - With Apple Logo Glow
+// Modern Desk Component - Sleek Design
 function Desk() {
     return (
-        <group position={[0, 0, 0]} rotation={[0, 0, 0]}>
-            {/* Table Top */}
-            <mesh position={[0, 0.75, 0]}>
-                <boxGeometry args={[2.2, 0.05, 0.8]} />
-                <meshStandardMaterial color="#1a1a1a" roughness={0.2} metalness={0.8} />
-            </mesh>
-            {/* Legs */}
-            <mesh position={[-1.0, 0.375, 0.35]}>
-                <boxGeometry args={[0.05, 0.75, 0.05]} />
-                <meshStandardMaterial color="#333" />
-            </mesh>
-            <mesh position={[1.0, 0.375, 0.35]}>
-                <boxGeometry args={[0.05, 0.75, 0.05]} />
-                <meshStandardMaterial color="#333" />
-            </mesh>
-            <mesh position={[-1.0, 0.375, -0.35]}>
-                <boxGeometry args={[0.05, 0.75, 0.05]} />
-                <meshStandardMaterial color="#333" />
-            </mesh>
-            <mesh position={[1.0, 0.375, -0.35]}>
-                <boxGeometry args={[0.05, 0.75, 0.05]} />
-                <meshStandardMaterial color="#333" />
+        <group position={[0, 0, 0]}>
+            {/* Modern Table Top - Rounded edges effect */}
+            <mesh position={[0, 0.7, 0]} castShadow>
+                <boxGeometry args={[1.8, 0.04, 0.9]} />
+                <meshStandardMaterial
+                    color="#2a2a2a"
+                    roughness={0.3}
+                    metalness={0.6}
+                />
             </mesh>
 
-            {/* Laptop - Rotated so Apple logo faces viewer */}
-            <group position={[0, 0.78, 0]} rotation={[0, Math.PI, 0]}>
-                {/* Base */}
-                <mesh position={[0, 0, 0.1]}>
-                    <boxGeometry args={[0.4, 0.02, 0.3]} />
-                    <meshStandardMaterial color="#d4d4d4" metalness={0.9} roughness={0.1} />
+            {/* Sleek Legs - Modern style */}
+            <mesh position={[-0.7, 0.35, 0.35]} castShadow>
+                <cylinderGeometry args={[0.03, 0.03, 0.7]} />
+                <meshStandardMaterial color="#1a1a1a" metalness={0.8} roughness={0.2} />
+            </mesh>
+            <mesh position={[0.7, 0.35, 0.35]} castShadow>
+                <cylinderGeometry args={[0.03, 0.03, 0.7]} />
+                <meshStandardMaterial color="#1a1a1a" metalness={0.8} roughness={0.2} />
+            </mesh>
+            <mesh position={[-0.7, 0.35, -0.35]} castShadow>
+                <cylinderGeometry args={[0.03, 0.03, 0.7]} />
+                <meshStandardMaterial color="#1a1a1a" metalness={0.8} roughness={0.2} />
+            </mesh>
+            <mesh position={[0.7, 0.35, -0.35]} castShadow>
+                <cylinderGeometry args={[0.03, 0.03, 0.7]} />
+                <meshStandardMaterial color="#1a1a1a" metalness={0.8} roughness={0.2} />
+            </mesh>
+
+            {/* MacBook Pro - Realistic */}
+            <group position={[0.2, 0.72, 0]} rotation={[0, -0.3, 0]}>
+                {/* Base/Keyboard */}
+                <mesh position={[0, 0.01, 0]} castShadow>
+                    <boxGeometry args={[0.35, 0.015, 0.25]} />
+                    <meshStandardMaterial
+                        color="#c0c0c0"
+                        metalness={0.95}
+                        roughness={0.05}
+                    />
                 </mesh>
+
                 {/* Screen */}
-                <mesh position={[0, 0.15, -0.05]} rotation={[-0.2, 0, 0]}>
-                    <boxGeometry args={[0.4, 0.3, 0.02]} />
-                    <meshStandardMaterial color="#1a1a1a" metalness={0.8} roughness={0.2} />
+                <mesh position={[0, 0.13, -0.11]} rotation={[-0.3, 0, 0]} castShadow>
+                    <boxGeometry args={[0.35, 0.22, 0.01]} />
+                    <meshStandardMaterial
+                        color="#1a1a1a"
+                        metalness={0.7}
+                        roughness={0.3}
+                    />
                 </mesh>
-                {/* Apple Logo Glow - Back of Screen (now visible) */}
-                <mesh position={[0, 0.15, -0.06]} rotation={[-0.2, 0, 0]}>
-                    <circleGeometry args={[0.05, 32]} />
-                    <meshBasicMaterial color="#ffffff" toneMapped={false} />
+
+                {/* Apple Logo - Glowing */}
+                <mesh position={[0, 0.13, -0.115]} rotation={[-0.3, 0, 0]}>
+                    <circleGeometry args={[0.04, 32]} />
+                    <meshStandardMaterial
+                        color="#ffffff"
+                        emissive="#ffffff"
+                        emissiveIntensity={0.8}
+                        toneMapped={false}
+                    />
                 </mesh>
-                {/* Screen Display Glow */}
-                <mesh position={[0, 0.15, -0.04]} rotation={[-0.2, 0, 0]}>
-                    <planeGeometry args={[0.38, 0.28]} />
-                    <meshBasicMaterial color="#4a9eff" toneMapped={false} opacity={0.8} transparent />
+
+                {/* Screen Glow */}
+                <mesh position={[0, 0.13, -0.105]} rotation={[-0.3, 0, 0]}>
+                    <planeGeometry args={[0.33, 0.20]} />
+                    <meshStandardMaterial
+                        color="#3b82f6"
+                        emissive="#3b82f6"
+                        emissiveIntensity={0.3}
+                        toneMapped={false}
+                    />
                 </mesh>
             </group>
         </group>
     );
 }
 
-// Chair Component - Tucked in
+// Modern Office Chair
 function Chair() {
     return (
-        <group position={[0, 0, 0.6]} rotation={[0, -Math.PI, 0]}>
-            {/* Seat */}
-            <mesh position={[0, 0.45, 0]}>
-                <boxGeometry args={[0.5, 0.05, 0.5]} />
-                <meshStandardMaterial color="#333" />
+        <group position={[-0.3, 0, 0.5]} rotation={[0, 0.2, 0]}>
+            {/* Seat - Cushioned look */}
+            <mesh position={[0, 0.5, 0]} castShadow>
+                <cylinderGeometry args={[0.25, 0.22, 0.08, 32]} />
+                <meshStandardMaterial
+                    color="#2c2c2c"
+                    roughness={0.7}
+                    metalness={0.1}
+                />
             </mesh>
-            {/* Back */}
-            <mesh position={[0, 0.7, 0.23]}>
-                <boxGeometry args={[0.5, 0.5, 0.05]} />
-                <meshStandardMaterial color="#333" />
+
+            {/* Backrest */}
+            <mesh position={[0, 0.75, -0.15]} rotation={[-0.1, 0, 0]} castShadow>
+                <boxGeometry args={[0.4, 0.45, 0.05]} />
+                <meshStandardMaterial
+                    color="#2c2c2c"
+                    roughness={0.7}
+                    metalness={0.1}
+                />
             </mesh>
-            {/* Base */}
-            <mesh position={[0, 0.225, 0]}>
-                <cylinderGeometry args={[0.05, 0.05, 0.45]} />
-                <meshStandardMaterial color="#222" />
+
+            {/* Central Post */}
+            <mesh position={[0, 0.25, 0]}>
+                <cylinderGeometry args={[0.03, 0.03, 0.5]} />
+                <meshStandardMaterial color="#1a1a1a" metalness={0.8} roughness={0.2} />
+            </mesh>
+
+            {/* Base Star */}
+            <mesh position={[0, 0.02, 0]} rotation={[0, 0, 0]}>
+                <cylinderGeometry args={[0.3, 0.3, 0.02, 5]} />
+                <meshStandardMaterial color="#1a1a1a" metalness={0.8} roughness={0.2} />
             </mesh>
         </group>
     );
@@ -144,8 +186,8 @@ function Avatar() {
     }, [isWaving, actions]);
 
     // Position: Right after "Ullah" - hand next to the "h"
-    // Facing directly towards the viewer
-    return <primitive object={scene} ref={group} position={[2.8, 0, 0]} rotation={[0, 0, 0]} scale={1.0} />;
+    // Rotated to make wave face viewer (Mixamo animations face +Z by default)
+    return <primitive object={scene} ref={group} position={[2.8, 0, 0]} rotation={[0, Math.PI / 2, 0]} scale={1.0} />;
 }
 
 export default function AvatarScene() {
