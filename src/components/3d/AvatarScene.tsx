@@ -2,7 +2,7 @@
 
 import { useGLTF, useAnimations, useFBX, PerspectiveCamera, Environment, ContactShadows } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, Suspense } from 'react';
 import * as THREE from 'three';
 import { Group } from 'three';
 
@@ -223,9 +223,9 @@ export default function AvatarScene() {
             <Chair />
 
             {/* Fallback if model is missing: Just show the desk setup */}
-            <React.Suspense fallback={null}>
+            <Suspense fallback={null}>
                 <Avatar />
-            </React.Suspense>
+            </Suspense>
 
             <ContactShadows opacity={0.4} scale={10} blur={2} far={4} />
             <Environment preset="city" />
