@@ -92,6 +92,29 @@ function Avatar() {
     waveAnim[0].name = 'wave';
     sitAnim[0].name = 'sit';
 
+    // Helper to clean Mixamo animation track names
+    const cleanAnimation = (clips: THREE.AnimationClip[]) => {
+        clips.forEach(clip => {
+            clip.tracks.forEach(track => {
+                // Remove 'mixamorig' prefix from bone names
+                track.name = track.name.replace('mixamorig', '');
+
+                // Ensure it targets the correct root bone if needed (usually Hips)
+                if (track.name.startsWith('.position')) {
+                    // track.name = 'Hips.position'; // Sometimes needed, but let's try just stripping first
+                }
+            });
+        });
+    };
+
+    useEffect(() => {
+        if (walkAnim && waveAnim && sitAnim) {
+            cleanAnimation(walkAnim);
+            cleanAnimation(waveAnim);
+            cleanAnimation(sitAnim);
+        }
+    }, [walkAnim, waveAnim, sitAnim]);
+
     const { actions } = useAnimations([walkAnim[0], waveAnim[0], sitAnim[0]], group);
 
     // Stages: 
