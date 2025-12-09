@@ -6,18 +6,26 @@ import Image from 'next/image';
 
 const projects = [
     {
-        title: 'Retail AI Analytics Platform',
-        description: 'Predictive models for retail trends using Machine Learning and SQL. Features an interactive dashboard for real-time insights.',
-        tags: ['Python', 'SQL', 'Machine Learning', 'React'],
+        title: 'Shopify Multi-Store Solution',
+        description: 'Custom app for inventory sync across 3 stores with automated pricing/promo system. Achieved 30% conversion improvement through intelligent product recommendations and streamlined checkout.',
+        tags: ['Shopify', 'Node.js', 'React', 'APIs', 'Automation'],
         image: '/projects/retail-analytics.jpg',
         github: 'https://github.com/saeedorakzai',
         demo: null,
     },
     {
-        title: 'Gesture Control Prototype',
-        description: 'Computer vision system for controlling interfaces via hand gestures. Built with OpenCV and MediaPipe.',
-        tags: ['OpenCV', 'MediaPipe', 'Python', 'Computer Vision'],
+        title: 'Wix to Shopify Migration',
+        description: 'Seamlessly migrated 500+ products with preserved SEO using 301 redirects. Built custom mobile-first theme optimized for conversions and user experience.',
+        tags: ['Shopify', 'Liquid', 'SEO', 'Migration', 'E-Commerce'],
         image: '/projects/gesture-control.jpg',
+        github: 'https://github.com/saeedorakzai',
+        demo: null,
+    },
+    {
+        title: 'AI Retail Analytics Platform',
+        description: 'Predictive sales models with 85% accuracy. Integrated Shopify API for real-time data analysis with interactive dashboards for business insights.',
+        tags: ['Python', 'Machine Learning', 'Shopify API', 'Data Analytics'],
+        image: '/projects/retail-analytics.jpg',
         github: 'https://github.com/saeedorakzai',
         demo: null,
     },

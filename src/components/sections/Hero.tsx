@@ -32,7 +32,7 @@ export default function Hero() {
                         </span>
                     </h1>
                     <p className="text-xl md:text-2xl text-text-muted mb-8 max-w-2xl mx-auto">
-                        AI Solutions Developer specializing in Machine Learning, Computer Vision, and Cloud Architecture.
+                        AI Solutions Developer • Shopify & Web Specialist
                     </p>
 
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

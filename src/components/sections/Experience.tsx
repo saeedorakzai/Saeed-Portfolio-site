@@ -6,24 +6,24 @@ import { Briefcase, GraduationCap, Calendar } from 'lucide-react';
 const experiences = [
     {
         type: 'work',
-        title: 'AI Solutions Developer',
-        organization: 'Freelance / Self-Employed',
-        date: '2023 - Present',
-        description: 'Developing custom AI solutions for clients, focusing on NLP and Computer Vision applications.',
+        title: 'Web Developer',
+        organization: 'UK Web Services Company',
+        date: 'June 2024 – Present',
+        description: 'Developed 5+ production Shopify stores and 3 custom apps for inventory sync & automation. Built 10+ responsive sites across Wix, Squarespace, Webflow. Increased client conversion rates by 30% through newsletter integration & marketing optimization.',
     },
     {
         type: 'education',
-        title: 'Bachelor of Science in Computer Science',
-        organization: 'Abdul Wali Khan University Mardan',
-        date: '2020 - 2024',
-        description: 'Focus on Artificial Intelligence and Data Science. Founding Chair of BitsNBytes Society.',
+        title: 'BSc Computer Science (AI)',
+        organization: 'Abdul Wali Khan University',
+        date: '2021 – May 2025',
+        description: 'Specialized in Artificial Intelligence and Machine Learning. Completed certifications in Entrepreneurship (GIKI Catalyst), Advanced Analytics (GIKI), and Gen AI (NVIDIA Certified).',
     },
     {
         type: 'leadership',
         title: 'Founding Chair',
-        organization: 'AWKUM BitsNBytes Society',
-        date: '2022 - 2024',
-        description: 'Led a student organization to promote tech education, organized hackathons and workshops.',
+        organization: 'BitsNBytes Society',
+        date: '2022 – 2024',
+        description: 'Led a student organization of 100+ members to promote tech education. Co-Founded University Help Desk improving efficiency by 40%. Directed events with 2K+ attendees.',
     },
 ];
 

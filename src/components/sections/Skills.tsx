@@ -4,20 +4,20 @@ import { motion } from 'framer-motion';
 
 const skillCategories = [
     {
-        title: 'Machine Learning',
-        skills: ['Neural Networks', 'Computer Vision', 'NLP', 'Recommender Systems', 'Time-Series Analysis', 'Scikit-learn', 'TensorFlow/PyTorch'],
+        title: 'E-Commerce Platforms',
+        skills: ['Shopify', 'Shopify Apps', 'Liquid', 'Shopify Plus', 'WooCommerce', 'Wix', 'Squarespace', 'Webflow'],
         color: 'text-primary',
         borderColor: 'border-primary/20',
     },
     {
         title: 'Development',
-        skills: ['Python', 'SQL', 'JavaScript/TypeScript', 'React', 'Next.js', 'Git', 'REST APIs'],
+        skills: ['HTML5', 'CSS3', 'JavaScript', 'Python', 'React', 'Node.js', 'APIs', 'Git'],
         color: 'text-secondary',
         borderColor: 'border-secondary/20',
     },
     {
-        title: 'Tools & Cloud',
-        skills: ['Streamlit', 'OpenCV', 'MediaPipe', 'MySQL', 'Firebase', 'Supabase', 'Vercel'],
+        title: 'Marketing & Tools',
+        skills: ['Email Campaigns', 'SEO', 'Analytics', 'CRO', 'WordPress', 'Machine Learning', 'Data Analytics'],
         color: 'text-accent',
         borderColor: 'border-accent/20',
     },

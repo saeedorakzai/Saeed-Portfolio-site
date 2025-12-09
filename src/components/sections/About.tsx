@@ -38,28 +38,28 @@ export default function About() {
 
                         <div className="space-y-4 text-text-muted text-lg leading-relaxed">
                             <p>
-                                I am an <strong className="text-white">AI Solutions Developer</strong> with a passion for building intelligent systems that solve real-world problems. My expertise lies in Machine Learning, Computer Vision, and Cloud Architecture.
+                                I am an <strong className="text-white">AI Solutions Developer & Shopify Specialist</strong> with 6 months of hands-on experience delivering e-commerce solutions for UK clients. I specialize in the Shopify ecosystem, building production stores, custom apps, and managing complete operations from pricing to promotions.
                             </p>
                             <p>
-                                Currently, I focus on developing scalable AI applications, from predictive analytics platforms to interactive computer vision prototypes. I combine strong theoretical knowledge with practical engineering skills to deliver robust solutions.
+                                My expertise spans modern website builders (Wix, Squarespace, Webflow) and implementing marketing strategies that drive conversions. I've successfully increased client conversion rates by <strong className="text-primary">30%</strong> through newsletter integration and marketing optimization.
                             </p>
                             <p>
-                                Beyond coding, I am an active leader in the tech community, having served as the Founding Chair of the AWKUM BitsNBytes Society and organizing various tech events. I believe in the power of knowledge sharing and continuous learning.
+                                Beyond e-commerce, I'm passionate about AI and machine learning. As the <strong className="text-white">Founding Chair of BitsNBytes Society</strong> (100+ members) and <strong className="text-white">Co-Founder of University Help Desk</strong>, I believe in the power of knowledge sharing and continuous learning.
                             </p>
                         </div>
 
                         <div className="mt-8 flex flex-wrap gap-4">
                             <div className="px-4 py-2 bg-white/5 rounded-lg border border-white/10">
-                                <span className="block text-2xl font-bold text-primary">2+</span>
-                                <span className="text-sm text-text-muted">Years Experience</span>
+                                <span className="block text-2xl font-bold text-primary">6+</span>
+                                <span className="text-sm text-text-muted">Months Experience</span>
                             </div>
                             <div className="px-4 py-2 bg-white/5 rounded-lg border border-white/10">
-                                <span className="block text-2xl font-bold text-secondary">10+</span>
-                                <span className="text-sm text-text-muted">Projects Completed</span>
+                                <span className="block text-2xl font-bold text-secondary">15+</span>
+                                <span className="text-sm text-text-muted">Sites Built</span>
                             </div>
                             <div className="px-4 py-2 bg-white/5 rounded-lg border border-white/10">
                                 <span className="block text-2xl font-bold text-accent">5+</span>
-                                <span className="text-sm text-text-muted">Tech Events Organized</span>
+                                <span className="text-sm text-text-muted">Shopify Stores</span>
                             </div>
                         </div>
                     </motion.div>
