@@ -1,19 +1,13 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import Scene from '@/components/3d/Scene';
-import ParticleField from '@/components/3d/ParticleField';
-
-
 
 export default function Hero() {
     return (
         <section className="relative h-screen w-full overflow-hidden flex items-center justify-center">
-            {/* 3D Background */}
-            <div className="absolute inset-0 z-0">
-                <Scene className="h-full w-full">
-                    <ParticleField />
-                </Scene>
+            {/* Gradient Background */}
+            <div className="absolute inset-0 bg-gradient-to-br from-background via-primary to-background">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,209,255,0.1),transparent_50%)]"></div>
             </div>
 
             {/* Content */}
