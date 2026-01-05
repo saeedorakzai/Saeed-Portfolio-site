@@ -63,18 +63,10 @@ export default function Navbar() {
                     ))}
                     <Link
                         href="/login"
-                        className="text-sm font-medium text-text-muted hover:text-accent transition-colors"
-                    >
-                        Login
-                    </Link>
-                    <a
-                        href="/resume.pdf"
-                        target="_blank"
-                        rel="noopener noreferrer"
                         className="px-4 py-2 text-sm font-medium text-primary bg-accent rounded-full hover:bg-accent/90 transition-colors"
                     >
-                        Resume
-                    </a>
+                        Client Portal
+                    </Link>
                 </div>
 
                 {/* Mobile Menu Button */}
@@ -110,19 +102,10 @@ export default function Navbar() {
                             <Link
                                 href="/login"
                                 onClick={() => setIsOpen(false)}
-                                className="text-lg font-medium text-text-muted hover:text-accent transition-colors"
-                            >
-                                Login
-                            </Link>
-                            <a
-                                href="/resume.pdf"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                onClick={() => setIsOpen(false)}
                                 className="px-4 py-2 text-center text-sm font-medium text-primary bg-accent rounded-full hover:bg-accent/90 transition-colors"
                             >
-                                Download Resume
-                            </a>
+                                Client Portal
+                            </Link>
                         </div>
                     </motion.div>
                 )}
