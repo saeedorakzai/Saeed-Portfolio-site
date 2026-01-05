@@ -1,68 +1,87 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import Image from 'next/image';
+import { Target, Users, Zap, Globe } from 'lucide-react';
+
+const values = [
+    {
+        icon: Target,
+        title: 'Innovation First',
+        description: 'We believe in the power of the first drop - that initial spark of innovation that transforms businesses.'
+    },
+    {
+        icon: Users,
+        title: 'Expert Collective',
+        description: 'A curated network of specialists in AI, mobile development, web engineering, and creative services.'
+    },
+    {
+        icon: Zap,
+        title: 'Rapid Execution',
+        description: 'From concept to deployment, we deliver cutting-edge solutions with speed and precision.'
+    },
+    {
+        icon: Globe,
+        title: 'Global Reach',
+        description: 'Serving clients across the USA, UK, and Canada with world-class digital solutions.'
+    }
+];
 
 export default function About() {
     return (
-        <section id="about" className="py-20 bg-surface relative overflow-hidden">
+        <section id="about" className="py-20 bg-background relative overflow-hidden">
             <div className="container mx-auto px-6">
-                <div className="flex flex-col md:flex-row items-center gap-12">
-                    {/* Profile Image / Avatar */}
-                    <motion.div
-                        initial={{ opacity: 0, x: -50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        className="w-full md:w-1/3 flex justify-center"
-                    >
-                        <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-primary/20 shadow-2xl shadow-primary/10">
-                            <Image
-                                src="/profile.jpg"
-                                alt="Saeed Ullah"
-                                fill
-                                className="object-cover"
-                            />
-                        </div>
-                    </motion.div>
+                {/* Header */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="text-center mb-16"
+                >
+                    <h2 className="text-4xl md:text-5xl font-bold mb-6">
+                        About <span className="text-accent">Us</span>
+                    </h2>
+                    <p className="text-xl text-text-muted max-w-3xl mx-auto leading-relaxed">
+                        <span className="text-accent font-semibold">Primum Stilla</span> - Latin for "The First Drop" - represents the transformative moment when innovation begins. We are a premium digital agency specializing in AI-powered solutions, mobile app development, and full-stack web engineering.
+                    </p>
+                </motion.div>
 
-                    {/* Bio Content */}
-                    <motion.div
-                        initial={{ opacity: 0, x: 50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        className="w-full md:w-2/3"
-                    >
-                        <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                            About <span className="text-primary">Me</span>
-                        </h2>
+                {/* Story */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="mb-16 bg-surface/30 backdrop-blur-sm border border-white/10 rounded-2xl p-8 md:p-12"
+                >
+                    <h3 className="text-2xl md:text-3xl font-bold mb-6 text-white">Our Story</h3>
+                    <div className="space-y-4 text-text-muted text-lg leading-relaxed">
+                        <p>
+                            In a world drowning in data, businesses need that <span className="text-accent font-semibold">first drop of clarity</span> - the breakthrough insight, the perfect app, the intelligent automation that changes everything.
+                        </p>
+                        <p>
+                            We've delivered <span className="text-white font-semibold">300k+ mobile app downloads</span>, built AI models with <span className="text-white font-semibold">95%+ accuracy</span>, and created web platforms that scale globally. Our expertise spans machine learning, cross-platform mobile development, modern web technologies, and creative services.
+                        </p>
+                        <p>
+                            Whether you're a startup seeking your first AI integration or an enterprise scaling your digital infrastructure, we bring the technical excellence and creative vision to make it happen.
+                        </p>
+                    </div>
+                </motion.div>
 
-                        <div className="space-y-4 text-text-muted text-lg leading-relaxed">
-                            <p>
-                                I am an <strong className="text-white">AI Solutions Developer & Shopify Specialist</strong> with 6 months of hands-on experience delivering e-commerce solutions for UK clients. I specialize in the Shopify ecosystem, building production stores, custom apps, and managing complete operations from pricing to promotions.
-                            </p>
-                            <p>
-                                My expertise spans modern website builders (Wix, Squarespace, Webflow) and implementing marketing strategies that drive conversions. I've successfully increased client conversion rates by <strong className="text-primary">30%</strong> through newsletter integration and marketing optimization.
-                            </p>
-                            <p>
-                                Beyond e-commerce, I'm passionate about AI and machine learning. As the <strong className="text-white">Founding Chair of BitsNBytes Society</strong> (100+ members) and <strong className="text-white">Co-Founder of University Help Desk</strong>, I believe in the power of knowledge sharing and continuous learning.
-                            </p>
-                        </div>
-
-                        <div className="mt-8 flex flex-wrap gap-4">
-                            <div className="px-4 py-2 bg-white/5 rounded-lg border border-white/10">
-                                <span className="block text-2xl font-bold text-primary">6+</span>
-                                <span className="text-sm text-text-muted">Months Experience</span>
-                            </div>
-                            <div className="px-4 py-2 bg-white/5 rounded-lg border border-white/10">
-                                <span className="block text-2xl font-bold text-secondary">15+</span>
-                                <span className="text-sm text-text-muted">Sites Built</span>
-                            </div>
-                            <div className="px-4 py-2 bg-white/5 rounded-lg border border-white/10">
-                                <span className="block text-2xl font-bold text-accent">5+</span>
-                                <span className="text-sm text-text-muted">Shopify Stores</span>
-                            </div>
-                        </div>
-                    </motion.div>
+                {/* Values Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {values.map((value, index) => (
+                        <motion.div
+                            key={value.title}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: index * 0.1 }}
+                            className="bg-surface/50 backdrop-blur-sm border border-white/10 rounded-xl p-6 hover:border-accent/50 transition-all duration-300"
+                        >
+                            <value.icon className="w-10 h-10 text-accent mb-4" />
+                            <h4 className="text-xl font-bold mb-3 text-white">{value.title}</h4>
+                            <p className="text-text-muted text-sm">{value.description}</p>
+                        </motion.div>
+                    ))}
                 </div>
             </div>
         </section>

@@ -2,10 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Scene from '@/components/3d/Scene';
-import AvatarScene from '@/components/3d/AvatarScene';
-import { useRef } from 'react';
-import { useFrame } from '@react-three/fiber';
-import { MeshDistortMaterial, Sphere } from '@react-three/drei';
+import ParticleField from '@/components/3d/ParticleField';
 
 
 
@@ -15,7 +12,7 @@ export default function Hero() {
             {/* 3D Background */}
             <div className="absolute inset-0 z-0">
                 <Scene className="h-full w-full">
-                    <AvatarScene />
+                    <ParticleField />
                 </Scene>
             </div>
 
