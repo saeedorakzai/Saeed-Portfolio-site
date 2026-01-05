@@ -32,7 +32,7 @@ export default function Hero() {
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                         <a
                             href="#services"
-                            className="px-8 py-3 rounded-full bg-primary text-background font-semibold hover:bg-primary/90 transition-all transform hover:scale-105"
+                            className="px-8 py-3 rounded-full bg-accent text-primary font-semibold hover:bg-accent/90 transition-all transform hover:scale-105"
                         >
                             Explore Services
                         </a>

@@ -56,14 +56,14 @@ export default function Navbar() {
                             key={item.name}
                             href={item.href}
                             onClick={(e) => handleNavClick(e, item.href)}
-                            className="text-sm font-medium text-text-muted hover:text-primary transition-colors cursor-pointer"
+                            className="text-sm font-medium text-text-muted hover:text-accent transition-colors cursor-pointer"
                         >
                             {item.name}
                         </a>
                     ))}
                     <Link
                         href="/login"
-                        className="text-sm font-medium text-text-muted hover:text-primary transition-colors"
+                        className="text-sm font-medium text-text-muted hover:text-accent transition-colors"
                     >
                         Login
                     </Link>
@@ -71,7 +71,7 @@ export default function Navbar() {
                         href="/resume.pdf"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-4 py-2 text-sm font-medium text-background bg-primary rounded-full hover:bg-primary/90 transition-colors"
+                        className="px-4 py-2 text-sm font-medium text-primary bg-accent rounded-full hover:bg-accent/90 transition-colors"
                     >
                         Resume
                     </a>
@@ -102,7 +102,7 @@ export default function Navbar() {
                                     key={item.name}
                                     href={item.href}
                                     onClick={(e) => handleNavClick(e, item.href)}
-                                    className="text-lg font-medium text-text-muted hover:text-primary transition-colors cursor-pointer"
+                                    className="text-lg font-medium text-text-muted hover:text-accent transition-colors cursor-pointer"
                                 >
                                     {item.name}
                                 </a>
@@ -110,7 +110,7 @@ export default function Navbar() {
                             <Link
                                 href="/login"
                                 onClick={() => setIsOpen(false)}
-                                className="text-lg font-medium text-text-muted hover:text-primary transition-colors"
+                                className="text-lg font-medium text-text-muted hover:text-accent transition-colors"
                             >
                                 Login
                             </Link>
@@ -119,7 +119,7 @@ export default function Navbar() {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 onClick={() => setIsOpen(false)}
-                                className="px-4 py-2 text-center text-sm font-medium text-background bg-primary rounded-full hover:bg-primary/90 transition-colors"
+                                className="px-4 py-2 text-center text-sm font-medium text-primary bg-accent rounded-full hover:bg-accent/90 transition-colors"
                             >
                                 Download Resume
                             </a>

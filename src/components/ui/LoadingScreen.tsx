@@ -45,8 +45,8 @@ export default function LoadingScreen() {
                             className="w-32 h-32 flex items-center justify-center"
                         >
                             <div className="text-5xl font-bold">
-                                <span className="text-primary">S</span>
-                                <span className="text-white">U</span>
+                                <span className="text-accent">P</span>
+                                <span className="text-white">S</span>
                             </div>
                         </motion.div>
 
