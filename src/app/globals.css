@@ -1,14 +1,21 @@
 @import "tailwindcss";
 
 :root {
-  /* Custom Color Palette */
-  --primary: #00D9FF;
-  --secondary: #7C3AED;
-  --accent: #F59E0B;
-  --background: #0A0A0F;
-  --surface: #1A1A2E;
-  --text: #E5E7EB;
-  --text-muted: #9CA3AF;
+  /* Primum Stilla - Deep Space Color Palette */
+  --primary: #0A0F1E;
+  /* Deep Midnight Navy */
+  --accent: #00D1FF;
+  /* Electric Cyan */
+  --secondary: #64748B;
+  /* Slate Grey */
+  --background: #0A0F1E;
+  /* Deep Midnight Navy */
+  --surface: #1A1F2E;
+  /* Slightly lighter navy */
+  --text: #FFFFFF;
+  /* Pure White */
+  --text-muted: #94A3B8;
+  /* Light Slate */
 
   /* Font Variables (will be set in layout.tsx) */
   --font-inter: sans-serif;
@@ -17,8 +24,8 @@
 
 @theme inline {
   --color-primary: var(--primary);
-  --color-secondary: var(--secondary);
   --color-accent: var(--accent);
+  --color-secondary: var(--secondary);
   --color-background: var(--background);
   --color-surface: var(--surface);
   --color-text: var(--text);

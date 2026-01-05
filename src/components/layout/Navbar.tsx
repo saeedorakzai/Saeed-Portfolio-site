@@ -7,10 +7,9 @@ import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const navItems = [
+    { name: 'Services', href: '#services' },
+    { name: 'Portfolio', href: '#portfolio' },
     { name: 'About', href: '#about' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Experience', href: '#experience' },
-    { name: 'Skills', href: '#skills' },
     { name: 'Contact', href: '#contact' },
 ];
 
@@ -45,8 +44,9 @@ export default function Navbar() {
             )}
         >
             <div className="container mx-auto px-6 flex items-center justify-between">
-                <Link href="/" className="text-2xl font-bold tracking-tighter text-primary">
-                    SU<span className="text-white">.</span>
+                <Link href="/" className="text-2xl font-bold tracking-tighter">
+                    <span className="text-accent">Primum</span>
+                    <span className="text-white"> Stilla</span>
                 </Link>
 
                 {/* Desktop Menu */}

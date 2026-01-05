@@ -7,11 +7,12 @@ export default function Footer() {
             <div className="container mx-auto px-6">
                 <div className="flex flex-col md:flex-row justify-between items-center">
                     <div className="mb-6 md:mb-0">
-                        <Link href="/" className="text-2xl font-bold tracking-tighter text-primary">
-                            SU<span className="text-white">.</span>
+                        <Link href="/" className="text-2xl font-bold tracking-tighter">
+                            <span className="text-accent">Primum</span>
+                            <span className="text-white"> Stilla</span>
                         </Link>
                         <p className="mt-2 text-sm text-text-muted">
-                            Building intelligent solutions for a better tomorrow.
+                            The First Drop of Innovation
                         </p>
                     </div>
 
@@ -45,7 +46,7 @@ export default function Footer() {
                 </div>
 
                 <div className="mt-8 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-xs text-text-muted">
-                    <p>&copy; {new Date().getFullYear()} Saeed Ullah. All rights reserved.</p>
+                    <p>&copy; {new Date().getFullYear()} Primum Stilla. All rights reserved.</p>
                     <div className="flex space-x-6 mt-4 md:mt-0">
                         <Link href="/privacy" className="hover:text-white transition-colors">
                             Privacy Policy
